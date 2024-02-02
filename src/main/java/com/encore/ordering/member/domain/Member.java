@@ -1,5 +1,6 @@
 package com.encore.ordering.member.domain;
 
+import com.encore.ordering.member.dto.MemberCreateReqDto;
 import com.encore.ordering.order.domain.Ordering;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,4 +39,24 @@ public class Member
     private LocalDateTime createdTime;
     @UpdateTimestamp
     private LocalDateTime updatedTime;
+
+    public static Member toEntity(MemberCreateReqDto memberCreateReqDto)
+    {
+        Address address = new Address(memberCreateReqDto.getCity(),memberCreateReqDto.getStreet(),memberCreateReqDto.getZipcode());
+
+        return Member.builder()
+                .name(memberCreateReqDto.getName())
+                .email(memberCreateReqDto.getEmail())
+                .address(address)
+                .role(Role.USER)
+                .password(memberCreateReqDto.getPassword())
+                .build();
+    }
+//    Member member = Member.builder()
+//            .name(memberCreateReqDto.getName())
+//            .email(memberCreateReqDto.getEmail())
+//            .address(address)
+//            .role(Role.USER)
+//            .password(passwordEncoder.encode(memberCreateReqDto.getPassword()))
+//            .build();
 }
