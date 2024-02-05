@@ -8,6 +8,8 @@ import com.encore.ordering.member.dto.MemberCreateReqDto;
 import com.encore.ordering.member.dto.MemberResponseDto;
 import com.encore.ordering.member.service.MemberService;
 import com.encore.ordering.order.domain.Ordering;
+import com.encore.ordering.order.dto.OrderResDto;
+import com.encore.ordering.order.service.OrderService;
 import com.encore.ordering.securities.JwtTokenProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +26,13 @@ import java.util.Objects;
 public class MemberController
 {
     private final MemberService memberService;
+    private final OrderService orderService;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public MemberController(MemberService memberService, JwtTokenProvider jwtTokenProvider)
+    public MemberController(MemberService memberService, OrderService orderService, JwtTokenProvider jwtTokenProvider)
     {
         this.memberService = memberService;
+        this.orderService = orderService;
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
@@ -44,10 +48,6 @@ public class MemberController
     {
         return memberService.findMyInfo();
     }
-
-//    @GetMapping("/member/{id}/orders")
-
-//    @GetMapping("/member/myorders")
 
     @PostMapping("/member/create")
     public ResponseEntity<CommonResponse> memberCreate(@Valid @RequestBody MemberCreateReqDto memberCreateReqDto)

@@ -28,6 +28,7 @@ public class Ordering
     private Member member;
 
     @Enumerated(EnumType.STRING)
+//    @Builder.Default -> ALlArgsConstructor
     private OrderStatus orderStatus = OrderStatus.ORDERED;
 
     @OneToMany(mappedBy = "ordering", cascade = CascadeType.PERSIST)
